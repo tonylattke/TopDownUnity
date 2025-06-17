@@ -12,8 +12,6 @@ public class FFCGameLevelValues : GameLevelValues
 
     private FFCEnemyManagerAI _enemyManagerAI;
     
-    private int counter = 0;
-    public int Counter { get { return counter; } }
     private float counterUpdateSpeed = 5;
     private float counterTimer = 0;
     
@@ -74,7 +72,7 @@ public class FFCGameLevelValues : GameLevelValues
 
         if (counterTimer <= 0)
         {
-            counter = 0;
+            GameInstance.Singleton.currentCounter = 0;
         }
     }
 }

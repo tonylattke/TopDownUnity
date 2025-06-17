@@ -151,6 +151,7 @@ MonoBehaviour:
   currentScore: 0
   currentLifePoints: 10
   maxLifePoints: 10
+  currentCounter: 0
 --- !u!4 &400674862
 Transform:
   m_ObjectHideFlags: 0
@@ -177,6 +178,7 @@ GameObject:
   - component: {fileID: 435583616}
   - component: {fileID: 435583618}
   - component: {fileID: 435583617}
+  - component: {fileID: 435583619}
   m_Layer: 5
   m_Name: TextScore
   m_TagString: Untagged
@@ -304,6 +306,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435583615}
   m_CullTransparentMesh: 1
+--- !u!114 &435583619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435583615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3610ba3fabdf894b9660fe58e3bf069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &468598413
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +352,6 @@ MonoBehaviour:
   Speed: 2
   enemyAcceptableDistance: 2
   CurrentState: 0
-  scoreUIText: {fileID: 435583617}
 --- !u!4 &468598415
 Transform:
   m_ObjectHideFlags: 0
@@ -961,13 +974,14 @@ GameObject:
   - component: {fileID: 1198053556}
   - component: {fileID: 1198053558}
   - component: {fileID: 1198053557}
+  - component: {fileID: 1198053559}
   m_Layer: 5
   m_Name: TextCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1198053556
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1088,6 +1102,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1198053555}
   m_CullTransparentMesh: 1
+--- !u!114 &1198053559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198053555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340c8301a53e0194f9276e7e9c61de85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1330786891
 GameObject:
   m_ObjectHideFlags: 0

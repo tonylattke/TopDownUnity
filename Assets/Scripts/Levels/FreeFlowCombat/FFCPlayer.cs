@@ -1,5 +1,4 @@
 using UnityEngine;
-using TMPro;
 
 public class FFCPlayer : MonoBehaviour
 {
@@ -9,9 +8,6 @@ public class FFCPlayer : MonoBehaviour
     [SerializeField] private float enemyAcceptableDistance = 40;
     
     public FFCPlayerState CurrentState = FFCPlayerState.Idle;
-    
-    [SerializeField] 
-    public TextMeshProUGUI scoreUIText;
     
     void Start()
     {
@@ -24,8 +20,6 @@ public class FFCPlayer : MonoBehaviour
         
         UpdateAttack();
         UpdateParry();
-        
-        scoreUIText.text = "Score: " + GameInstance.Singleton.currentScore;
     }
 
     private void UpdateMovement()

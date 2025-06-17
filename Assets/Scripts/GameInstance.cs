@@ -9,6 +9,8 @@ public class GameInstance : MonoBehaviour
     public float currentLifePoints = 10;
     [SerializeField] 
     public float maxLifePoints = 10;
+    
+    public int currentCounter = 0;
 
     private void Awake()
     {
