@@ -1,31 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameCore : MonoBehaviour
+public class FFCGameLevelValues : GameLevelValues
 {
-    [SerializeField]
-    public GameObject levelHandler;
-    private LevelHandler _levelHandlerRef;
-    private List<FFCEnemy> _enemies = new List<FFCEnemy>();
-    [SerializeField] private float enemyAcceptableDistance = 2;
+    private List<FFCEnemy> _enemies;
     
-    private void Start()
+    public override void InitializeValues()
     {
-        _levelHandlerRef = levelHandler.GetComponent<LevelHandler>();
-    }
-
-    void Update()
-    {
+        Initialize(LevelType.Combat);
         
+        _enemies = new List<FFCEnemy>();
+        
+        FFCEnemy[] enemies = Object.FindObjectsByType<FFCEnemy>(FindObjectsSortMode.None);
+        foreach (FFCEnemy enemy in enemies)
+        {
+            _enemies.Add(enemy);
+        }
     }
-
-    public void RegisterEnemy(GameObject newEnemy)
-    {
-        FFCEnemy enemy = newEnemy.GetComponent<FFCEnemy>();
-        _enemies.Add(enemy);
-    }
-
-    public GameObject ClosestEnemy(Vector2 mousePosition)
+    
+    public GameObject ClosestEnemy(Vector2 mousePosition, float enemyAcceptableDistance)
     {
         foreach (FFCEnemy enemy in _enemies)
             enemy.IsActive = false;
