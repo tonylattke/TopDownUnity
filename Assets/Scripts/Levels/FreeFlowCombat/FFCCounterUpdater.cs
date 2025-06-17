@@ -12,6 +12,7 @@ public class FFCCounterUpdater : MonoBehaviour
 
     void Update()
     {
-        _counterUIText.text = "x" + GameInstance.Singleton.currentCounter;
+        int counter = GameInstance.Singleton.currentCounter;
+        _counterUIText.text = counter <= 0 ? "" : "x" + GameInstance.Singleton.currentCounter;
     }
 }
