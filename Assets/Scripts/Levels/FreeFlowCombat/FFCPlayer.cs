@@ -8,6 +8,9 @@ public class FFCPlayer : MonoBehaviour
     [SerializeField] private float enemyAcceptableDistance = 40;
     
     public FFCPlayerState CurrentState = FFCPlayerState.Idle;
+    private FFCEnemy currentEnemy;
+    
+    public float CurrentAttackPoints = 1;
     
     void Start()
     {
@@ -51,18 +54,39 @@ public class FFCPlayer : MonoBehaviour
 
     void UpdateAttack()
     {
-        if (!Input.GetMouseButtonDown(0))
-            return;
-        
-        CurrentState = FFCPlayerState.Attacking;
+        switch (CurrentState)
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            FFCEnemy closestEnemy = gameManager.GetFFCCurrentLevelValues().ClosestEnemy(mousePosition, enemyAcceptableDistance);
-            if (closestEnemy is null)
-                return;
+            case FFCPlayerState.Idle:
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Vector2 mousePositionInAttack = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    FFCEnemy closestEnemy = gameManager.GetFFCCurrentLevelValues().ClosestEnemy(mousePositionInAttack, enemyAcceptableDistance);
+                    if (closestEnemy is null)
+                        return;
+                    
+                    CurrentState = FFCPlayerState.StartAttack;
+                    currentEnemy = closestEnemy;
+                    closestEnemy.IsActiveTarget = true;
+                }
+                break;
+            case FFCPlayerState.StartAttack:
+                if (Vector3.Distance(transform.position, currentEnemy.transform.position) < 0.1f)
+                {
+                    CurrentState = FFCPlayerState.Attacking;
+                    return;
+                }
+                transform.position = Vector3.MoveTowards(transform.position, currentEnemy.transform.position, Time.deltaTime * Speed);
+                break;
+            case FFCPlayerState.Attacking:
+                currentEnemy.ReceiveDamage(CurrentAttackPoints);
+                CurrentState = FFCPlayerState.Idle;
+                break;
+        }
+        
+        
+        
+        {
             
-            closestEnemy.IsActiveTarget = true;
-            transform.position = Vector3.MoveTowards(transform.position, closestEnemy.transform.position, Time.deltaTime * Speed);
         }
         
         /*
@@ -94,5 +118,14 @@ public class FFCPlayer : MonoBehaviour
         CurrentState = FFCPlayerState.Attacking;
         
         // TODO
+    }
+
+    public void ReceiveDamage(float damage)
+    {
+        GameInstance.Singleton.currentLifePoints -= damage;
+        if (GameInstance.Singleton.currentLifePoints > 0)
+            return;
+     
+        gameManager.PlayerDies();
     }
 }

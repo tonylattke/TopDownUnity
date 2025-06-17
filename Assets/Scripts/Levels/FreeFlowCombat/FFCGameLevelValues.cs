@@ -14,11 +14,11 @@ public class FFCGameLevelValues : GameLevelValues
     
     private float counterUpdateSpeed = 5;
     private float counterTimer = 0;
+    private float counterTimerMax = 5;
     
-    
-    public override void InitializeValues()
+    public override void InitializeValues(LevelHandler levelHandler)
     {
-        Initialize(LevelType.Combat);
+        Initialize(LevelType.Combat, levelHandler);
 
         _enemyManagerAI = new FFCEnemyManagerAI(this); 
         
@@ -74,5 +74,17 @@ public class FFCGameLevelValues : GameLevelValues
         {
             GameInstance.Singleton.currentCounter = 0;
         }
+    }
+
+    public void DeleteEnemy(FFCEnemy enemy)
+    {
+        Enemies.Remove(enemy);
+    }
+
+    public void SetEnemyAsAttacker(FFCEnemy ffcEnemy)
+    {
+        GameInstance.Singleton.currentCounter++;
+        counterTimer = counterTimerMax;
+        _enemyManagerAI.UpdateAttacker(ffcEnemy);
     }
 }

@@ -352,6 +352,7 @@ MonoBehaviour:
   Speed: 2
   enemyAcceptableDistance: 2
   CurrentState: 0
+  CurrentAttackPoints: 1
 --- !u!4 &468598415
 Transform:
   m_ObjectHideFlags: 0
@@ -361,7 +362,7 @@ Transform:
   m_GameObject: {fileID: 468598413}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1278,6 +1279,75 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barRef: {fileID: 1330786891}
+--- !u!1001 &1614155885
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2114869068460155147, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.107
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114869068460155147, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.083
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114869068460155147, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.029936183
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114869068460155147, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114869068460155147, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114869068460155147, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114869068460155147, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114869068460155147, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114869068460155147, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114869068460155147, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5777564311118068586, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: m_Name
+      value: FCEnemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: speed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: radius
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
 --- !u!1001 &3570357986309045061
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1288,11 +1358,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2114869068460155147, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.72
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2114869068460155147, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.44
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2114869068460155147, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1330,6 +1400,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FCEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: speed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
+      propertyPath: radius
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1344,6 +1426,7 @@ SceneRoots:
   - {fileID: 1163657881}
   - {fileID: 468598415}
   - {fileID: 3570357986309045061}
+  - {fileID: 1614155885}
   - {fileID: 1054437698}
   - {fileID: 840984260}
   - {fileID: 1036114014}

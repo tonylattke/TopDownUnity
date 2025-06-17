@@ -40,12 +40,17 @@ public class GameManagerSo : ScriptableObject
                 _currentLevelValues = new MenuGameLevelValues();
                 break;
         }
-        _currentLevelValues.InitializeValues();
+        _currentLevelValues.InitializeValues(_levelHandler);
         _levelHandler.CurrentLevelValues = _currentLevelValues;
     }
 
     public FFCGameLevelValues GetFFCCurrentLevelValues()
     {
         return _currentLevelValues as FFCGameLevelValues;
+    }
+
+    public void PlayerDies()
+    {
+        SceneManager.LoadScene(_levelHandler.nextScene);
     }
 }

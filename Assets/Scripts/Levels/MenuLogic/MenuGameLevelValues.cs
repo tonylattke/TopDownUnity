@@ -1,17 +1,26 @@
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuGameLevelValues : GameLevelValues
 {
-    public override void InitializeValues()
+    private float Timer = 3;
+    private float TimerSpeed = 1f;
+   
+    public override void InitializeValues(LevelHandler levelHandler)
     {
-        Initialize(LevelType.Menu);
-        
-        // TODO
+        Initialize(LevelType.Menu, levelHandler);
+
+        GameInstance.Singleton.Reset();
     }
 
     public override void Update()
     {
-        // TODO
+        Timer -= Time.deltaTime * TimerSpeed;
+        if (Timer < 0)
+        {
+            SceneManager.LoadScene(_levelHandler.nextScene);
+        }
     }
 }
 

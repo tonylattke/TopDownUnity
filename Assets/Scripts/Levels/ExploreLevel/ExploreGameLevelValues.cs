@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class ExploreGameLevelValues :  GameLevelValues
 {
-    public override void InitializeValues()
+    public override void InitializeValues(LevelHandler levelHandler)
     {
-        Initialize(LevelType.Explore);
+        Initialize(LevelType.Explore, levelHandler);
         
         // TODO
     }

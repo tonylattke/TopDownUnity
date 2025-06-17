@@ -34,4 +34,10 @@ public class GameInstance : MonoBehaviour
     {
         return currentLifePoints / maxLifePoints;
     }
+
+    public void Reset()
+    {
+        currentScore = 0;
+        currentLifePoints = maxLifePoints;
+    }
 }

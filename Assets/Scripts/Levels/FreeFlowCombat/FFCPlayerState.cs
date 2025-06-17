@@ -6,6 +6,7 @@ public enum FFCPlayerState
 {
     Idle,
     Moving,
+    StartAttack,
     Attacking,
     Dead
 }
