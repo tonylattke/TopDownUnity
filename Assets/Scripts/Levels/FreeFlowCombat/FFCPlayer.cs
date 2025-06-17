@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class FFCPlayer : MonoBehaviour
 {
@@ -6,6 +7,11 @@ public class FFCPlayer : MonoBehaviour
     
     [SerializeField] protected int Speed = 5;
     [SerializeField] private float enemyAcceptableDistance = 40;
+    
+    public FFCPlayerState CurrentState = FFCPlayerState.Idle;
+    
+    [SerializeField] 
+    public TextMeshProUGUI scoreUIText;
     
     void Start()
     {
@@ -18,6 +24,8 @@ public class FFCPlayer : MonoBehaviour
         
         UpdateAttack();
         UpdateParry();
+        
+        scoreUIText.text = "Score: " + GameInstance.Singleton.currentScore;
     }
 
     private void UpdateMovement()
@@ -49,7 +57,10 @@ public class FFCPlayer : MonoBehaviour
 
     void UpdateAttack()
     {
-        if (Input.GetMouseButtonDown(0)) // Left mouse button
+        if (!Input.GetMouseButtonDown(0))
+            return;
+        
+        CurrentState = FFCPlayerState.Attacking;
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             FFCEnemy closestEnemy = gameManager.GetFFCCurrentLevelValues().ClosestEnemy(mousePosition, enemyAcceptableDistance);
@@ -83,8 +94,11 @@ public class FFCPlayer : MonoBehaviour
 
     void UpdateParry()
     {
+        if (!Input.GetMouseButtonDown(1))
+            return;
+        
+        CurrentState = FFCPlayerState.Attacking;
+        
         // TODO
     }
-    
-    
 }

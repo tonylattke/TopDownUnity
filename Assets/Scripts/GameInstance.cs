@@ -27,4 +27,9 @@ public class GameInstance : MonoBehaviour
     {
         currentScore += points;
     }
+    
+    public float GetLifePercentage()
+    {
+        return currentLifePoints / maxLifePoints;
+    }
 }
