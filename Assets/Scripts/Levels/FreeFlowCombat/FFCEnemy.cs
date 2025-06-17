@@ -2,32 +2,42 @@ using UnityEngine;
 
 public class FFCEnemy : MonoBehaviour
 {
-    [SerializeField] 
-    protected GameObject gameCore;
-    protected GameCore GameCoreRef;
     [SerializeField] protected GameManagerSo gameManager;
     
-    private bool isActive = false;
-    public bool IsActive { get { return isActive; } set { isActive = value; } }
+    [SerializeField] private GameObject _markedTarget;
+    private bool _isActiveTarget = false;
+    public bool IsActiveTarget { get { return _isActiveTarget; } set { _isActiveTarget = value; } }
 
     [SerializeField] private float speed;
     [SerializeField] private float timeScale;
     
-    [SerializeField] 
-    protected GameObject player;
     [SerializeField] public float radius = 5f; // Radius of the circular path
     
-    private float angle = 0f; 
+    private float angle = 0f;
+
+    private FFCPlayer _player;
+
+    [SerializeField] private GameObject alertSign;
+    private bool surpriseAttack = false;
+    
+    private FFCEnemyState _state;
+    public FFCEnemyState State { get { return _state; } set { _state = value; } }
+    
+    [SerializeField] private float damage;
+    [SerializeField] private float damageRadius;
+
+    [SerializeField] private float lifePoints;
     
     void Start()
     {
-        GameCoreRef = gameCore.GetComponent<GameCore>();
-        GameCoreRef.RegisterEnemy(gameObject);
+        _player = gameManager.GetFFCCurrentLevelValues().Player;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        alertSign.SetActive(surpriseAttack);
+        _markedTarget.SetActive(_isActiveTarget);
+        
         if (speed <= 0)
             return;
         
@@ -43,9 +53,9 @@ public class FFCEnemy : MonoBehaviour
 
         // Set the enemy's position relative to the player
         Vector3 offset = new Vector3(x, y, 0);
-        transform.position = player.transform.position + offset;
+        transform.position = _player.transform.position + offset;
         
-        if (isActive)
+        if (_isActiveTarget)
             Debug.Log(gameObject.name);
     }
 }

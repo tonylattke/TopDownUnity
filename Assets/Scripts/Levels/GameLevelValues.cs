@@ -10,4 +10,5 @@ public abstract class GameLevelValues
     }
 
     public abstract void InitializeValues();
+    public abstract void Update();
 }

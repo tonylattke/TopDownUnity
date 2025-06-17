@@ -28,7 +28,7 @@ public class GameCore : MonoBehaviour
     public GameObject ClosestEnemy(Vector2 mousePosition)
     {
         foreach (FFCEnemy enemy in _enemies)
-            enemy.IsActive = false;
+            enemy.IsActiveTarget = false;
         
         GameObject closestEnemy = null;
         float closestDistance = Mathf.Infinity;

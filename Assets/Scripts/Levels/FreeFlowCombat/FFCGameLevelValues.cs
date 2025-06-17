@@ -1,16 +1,39 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class FFCGameLevelValues : GameLevelValues
 {
     private List<FFCEnemy> _enemies;
+    public List<FFCEnemy> Enemies { get { return _enemies; } }
+    
+    private FFCPlayer _player;
+    public FFCPlayer Player { get { return _player; } }
+
+    private FFCEnemyManagerAI _enemyManagerAI;
+    
+    private int counter = 0;
+    private float counterUpdateSpeed = 5;
+    private float counterTimer = 0;
+    
     
     public override void InitializeValues()
     {
         Initialize(LevelType.Combat);
+
+        _enemyManagerAI = new FFCEnemyManagerAI(this); 
         
+        // Player
+        _player = Object.FindFirstObjectByType<FFCPlayer>();
+        if (_player == null)
+        {
+            Debug.LogError("Player not found");
+            Application.Quit();
+            return;
+        }
+        
+        // Enemies
         _enemies = new List<FFCEnemy>();
-        
         FFCEnemy[] enemies = Object.FindObjectsByType<FFCEnemy>(FindObjectsSortMode.None);
         foreach (FFCEnemy enemy in enemies)
         {
@@ -18,12 +41,12 @@ public class FFCGameLevelValues : GameLevelValues
         }
     }
     
-    public GameObject ClosestEnemy(Vector2 mousePosition, float enemyAcceptableDistance)
+    public FFCEnemy ClosestEnemy(Vector2 mousePosition, float enemyAcceptableDistance)
     {
         foreach (FFCEnemy enemy in _enemies)
-            enemy.IsActive = false;
+            enemy.IsActiveTarget = false;
         
-        GameObject closestEnemy = null;
+        FFCEnemy closestEnemy = null;
         float closestDistance = Mathf.Infinity;
         foreach (FFCEnemy enemy in _enemies)
         {
@@ -31,10 +54,26 @@ public class FFCGameLevelValues : GameLevelValues
             if (currentDistanceToEnemy <= closestDistance)
             {
                 closestDistance = currentDistanceToEnemy;
-                closestEnemy = enemy.gameObject;
+                closestEnemy = enemy;
             }
         }
 
         return closestDistance > enemyAcceptableDistance ? null : closestEnemy;
+    }
+
+    public override void Update()
+    {
+        UpdateCounter();
+        _enemyManagerAI.Update();
+    }
+    
+    private void UpdateCounter()
+    {
+        counterTimer -= Time.deltaTime * counterUpdateSpeed;
+
+        if (counterTimer <= 0)
+        {
+            counter = 0;
+        }
     }
 }

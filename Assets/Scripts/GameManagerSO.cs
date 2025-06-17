@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "Scriptable ObjectGameManager")]
@@ -40,11 +41,11 @@ public class GameManagerSo : ScriptableObject
                 break;
         }
         _currentLevelValues.InitializeValues();
+        _levelHandler.CurrentLevelValues = _currentLevelValues;
     }
 
-    public GameObject ClosestEnemy(Vector2 mousePosition, float enemyAcceptableDistance)
+    public FFCGameLevelValues GetFFCCurrentLevelValues()
     {
-        return (_currentLevelValues as FFCGameLevelValues).ClosestEnemy(mousePosition, enemyAcceptableDistance);
+        return _currentLevelValues as FFCGameLevelValues;
     }
-    
 }

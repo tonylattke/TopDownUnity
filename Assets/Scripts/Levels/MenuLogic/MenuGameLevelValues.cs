@@ -8,5 +8,10 @@ public class MenuGameLevelValues : GameLevelValues
         
         // TODO
     }
+
+    public override void Update()
+    {
+        // TODO
+    }
 }
 

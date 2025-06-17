@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class Kid : NPC
 {
-    
-    void Start()
+    new void Start()
     {
         base.Start();
     }

@@ -8,4 +8,9 @@ public class ExploreGameLevelValues :  GameLevelValues
         
         // TODO
     }
+
+    public override void Update()
+    {
+        // TODO
+    }
 }
