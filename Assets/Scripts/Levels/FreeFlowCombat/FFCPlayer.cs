@@ -94,12 +94,37 @@ public class FFCPlayer : MonoBehaviour
 
     void UpdateParry()
     {
-        if (!Input.GetMouseButtonDown(1))
-            return;
-        
-        CurrentState = FFCPlayerState.Attacking;
-        
-        // TODO
+        switch (CurrentState)
+        {
+            case FFCPlayerState.Idle:
+                if (Input.GetMouseButtonDown(1))
+                {
+                    Vector2 mousePositionInAttack = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    FFCEnemy closestEnemy = gameManager.GetFFCCurrentLevelValues().GetChaseEnemy(mousePositionInAttack, enemyAcceptableDistance);
+                    if (closestEnemy is null)
+                        return;
+                    
+                    CurrentState = FFCPlayerState.StartAttack;
+                    _blockMovement = true;
+                    currentEnemy = closestEnemy;
+                    closestEnemy.IsActiveTarget = true;
+                }
+                break;
+            case FFCPlayerState.StartAttack:
+                if (Vector3.Distance(transform.position, currentEnemy.transform.position) < 0.1f)
+                {
+                    CurrentState = FFCPlayerState.Attacking;
+                    return;
+                }
+                transform.position = Vector3.MoveTowards(transform.position, currentEnemy.transform.position, Time.deltaTime * Speed * 2);
+                break;
+            case FFCPlayerState.Attacking:
+                int pointsToAdd = currentEnemy.ReceiveDamage(CurrentAttackPoints);
+                GameInstance.Singleton.AddPoints(pointsToAdd);
+                CurrentState = FFCPlayerState.Idle;
+                _blockMovement = false;
+                break;
+        }
     }
 
     public void ReceiveDamage(float damage)

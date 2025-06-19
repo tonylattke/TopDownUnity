@@ -86,6 +86,46 @@ public class FFCGameLevelValues : GameLevelValues
     {
         GameInstance.Singleton.currentCounter++;
         counterTimer = counterTimerMax;
-        _enemyManagerAI.UpdateAttacker(ffcEnemy);
+        _enemyManagerAI.UpdateChaser(ffcEnemy);
+    }
+
+    public bool ThereIsAtLeastOneEnemyIn(FFCEnemyState state)
+    {
+        foreach (FFCEnemy enemy in _enemies)
+        {
+            if (enemy.CurrentState == state)
+                return true;
+        }
+        
+        return false;
+    }
+    
+    public FFCEnemy GetOneEnemyInState(FFCEnemyState state)
+    {
+        foreach (FFCEnemy enemy in _enemies)
+        {
+            if (enemy.CurrentState == state)
+                return enemy;
+        }
+        
+        return null;
+    }
+    
+    public FFCEnemy GetChaseEnemy(Vector2 mousePosition, float enemyAcceptableDistance)
+    {
+        FFCEnemy chaseEnemy = null;
+        foreach (FFCEnemy enemy in _enemies)
+            if (enemy.CurrentState == FFCEnemyState.Chase)
+            {
+                chaseEnemy = enemy;
+                break;
+            }
+
+        if (chaseEnemy is null)
+            return null;
+        
+        float currentDistanceToEnemy = Vector2.Distance(chaseEnemy.gameObject.transform.position, mousePosition);
+        
+        return currentDistanceToEnemy > enemyAcceptableDistance ? null : chaseEnemy;
     }
 }

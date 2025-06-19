@@ -53,14 +53,19 @@ public class FFCEnemy : MonoBehaviour
         switch (_currentState)
         {
             case FFCEnemyState.Patrol:
+                surpriseAttack = false;
                 Patrol();
                 break;
             case FFCEnemyState.Chase:
+                surpriseAttack = true;
+                Chase();
                 break;
             case FFCEnemyState.Attack:
+                surpriseAttack = false;
                 Attack();
                 break;
             case FFCEnemyState.Dead:
+                surpriseAttack = false;
                 break;
         }
         alertSign.SetActive(surpriseAttack);
@@ -123,6 +128,13 @@ public class FFCEnemy : MonoBehaviour
     
     private void Attack()
     {
+        hitTimer = hitTimerMax;
+        _player.ReceiveDamage(damage);
+        _currentState = FFCEnemyState.Chase;
+    }
+    
+    private void Chase()
+    {
         transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, Time.deltaTime * speed);
         
         hitTimer -= Time.deltaTime * hitRecoverySpeed;
@@ -131,8 +143,7 @@ public class FFCEnemy : MonoBehaviour
             
         if (Vector3.Distance(transform.position, _player.transform.position) <= 0.1)
         {
-            hitTimer = hitTimerMax;
-            _player.ReceiveDamage(damage);
+            _currentState = FFCEnemyState.Attack;
         }
     }
 
