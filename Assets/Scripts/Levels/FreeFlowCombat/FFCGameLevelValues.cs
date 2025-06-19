@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 
 public class FFCGameLevelValues : GameLevelValues
 {
@@ -64,8 +65,11 @@ public class FFCGameLevelValues : GameLevelValues
     {
         UpdateCounter();
         _enemyManagerAI.Update();
+
+        if (AreAllEnemiesDead())
+            SceneManager.LoadScene("ExploreTest");
     }
-    
+
     private void UpdateCounter()
     {
         counterTimer -= Time.deltaTime * counterUpdateSpeed;
@@ -127,5 +131,14 @@ public class FFCGameLevelValues : GameLevelValues
         float currentDistanceToEnemy = Vector2.Distance(chaseEnemy.gameObject.transform.position, mousePosition);
         
         return currentDistanceToEnemy > enemyAcceptableDistance ? null : chaseEnemy;
+    }
+    
+    private bool AreAllEnemiesDead()
+    {
+        foreach (FFCEnemy enemy in _enemies)
+            if (enemy.CurrentState != FFCEnemyState.Dead)
+                return false;
+        
+        return true;
     }
 }

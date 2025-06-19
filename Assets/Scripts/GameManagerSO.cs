@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManagerSo : ScriptableObject
 {
     private LevelHandler _levelHandler;
+    public LevelHandler LevelHandler { get { return _levelHandler; } }
     private GameLevelValues _currentLevelValues;
     
     private void OnEnable()
