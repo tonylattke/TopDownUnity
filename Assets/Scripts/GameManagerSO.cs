@@ -39,6 +39,9 @@ public class GameManagerSo : ScriptableObject
             case LevelType.Menu:
                 _currentLevelValues = new MenuGameLevelValues();
                 break;
+            case LevelType.Score:
+                _currentLevelValues = new ScoreGameLevelValues();
+                break;
         }
         _currentLevelValues.InitializeValues(_levelHandler);
         _levelHandler.CurrentLevelValues = _currentLevelValues;

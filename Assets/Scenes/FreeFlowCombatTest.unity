@@ -1153,7 +1153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619219ff97210f34fad93afa7dc6043e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: MainMenu
+  nextScene: Score
   levelType: 0
   _gameManagerSo: {fileID: 11400000, guid: 7f816666d8f4f38478f5954efbe93015, type: 2}
 --- !u!4 &1163657881

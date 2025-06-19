@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FreeFlowCombatTest.unity
     guid: 432f0855188326341b57f448bd021d7c
+  - enabled: 1
+    path: Assets/Scenes/Score.unity
+    guid: 40e31f9b76cc08c4fb57a19c85b0acb3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

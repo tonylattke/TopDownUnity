@@ -6,5 +6,6 @@ public enum LevelType
 {
     Combat,
     Explore,
-    Menu
+    Menu,
+    Score
 }
