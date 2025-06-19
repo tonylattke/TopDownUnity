@@ -12,9 +12,9 @@ public class FFCGameLevelValues : GameLevelValues
 
     private FFCEnemyManagerAI _enemyManagerAI;
     
-    private float counterUpdateSpeed = 5;
+    private float counterUpdateSpeed = 1;
     private float counterTimer = 0;
-    private float counterTimerMax = 5;
+    private float counterTimerMax = 4;
     
     public override void InitializeValues(LevelHandler levelHandler)
     {
