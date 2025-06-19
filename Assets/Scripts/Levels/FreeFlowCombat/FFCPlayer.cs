@@ -12,6 +12,8 @@ public class FFCPlayer : MonoBehaviour
     
     public float CurrentAttackPoints = 1;
     
+    private bool _blockMovement = false;
+    
     void Start()
     {
         // Nothing to add for now
@@ -19,14 +21,17 @@ public class FFCPlayer : MonoBehaviour
 
     void Update()
     {
-        UpdateMovement();
-        
         UpdateAttack();
         UpdateParry();
+        
+        UpdateMovement();
     }
 
     private void UpdateMovement()
     {
+        if (_blockMovement)
+            return;
+        
         // Left
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
@@ -65,6 +70,7 @@ public class FFCPlayer : MonoBehaviour
                         return;
                     
                     CurrentState = FFCPlayerState.StartAttack;
+                    _blockMovement = true;
                     currentEnemy = closestEnemy;
                     closestEnemy.IsActiveTarget = true;
                 }
@@ -78,36 +84,12 @@ public class FFCPlayer : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, currentEnemy.transform.position, Time.deltaTime * Speed);
                 break;
             case FFCPlayerState.Attacking:
-                currentEnemy.ReceiveDamage(CurrentAttackPoints);
+                int pointsToAdd = currentEnemy.ReceiveDamage(CurrentAttackPoints);
+                GameInstance.Singleton.AddPoints(pointsToAdd);
                 CurrentState = FFCPlayerState.Idle;
+                _blockMovement = false;
                 break;
         }
-        
-        
-        
-        {
-            
-        }
-        
-        /*
-        if (Input.GetMouseButtonDown(0)) // Left mouse button
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-
-            if (hit.collider is not null)
-            {
-                // Log the name of the clicked object
-                Debug.Log("Clicked on: " + hit.collider.gameObject.name);
-
-                // Example: Access the clicked object
-                GameObject clickedObject = hit.collider.gameObject;
-
-                // Perform any action on the clicked object
-                // e.g., clickedObject.GetComponent<SpriteRenderer>().color = Color.red;
-            }
-
-        } */
     }
 
     void UpdateParry()

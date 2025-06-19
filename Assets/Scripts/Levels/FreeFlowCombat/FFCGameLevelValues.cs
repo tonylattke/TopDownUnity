@@ -72,6 +72,7 @@ public class FFCGameLevelValues : GameLevelValues
 
         if (counterTimer <= 0)
         {
+            GameInstance.Singleton.AddPoints(GameInstance.Singleton.currentCounter);
             GameInstance.Singleton.currentCounter = 0;
         }
     }

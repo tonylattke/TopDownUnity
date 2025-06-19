@@ -36,6 +36,9 @@ public class FFCEnemy : MonoBehaviour
     [SerializeField] private float hitTimerMax = 1.5f;
     [SerializeField] private float hitRecoverySpeed = 1.5f;
     
+    [SerializeField] private int _hitPoints = 1;
+    [SerializeField] private int _killPoints = 5;
+    
     void Start()
     {
         _ffcLevelValues = gameManager.GetFFCCurrentLevelValues();
@@ -64,19 +67,21 @@ public class FFCEnemy : MonoBehaviour
         _markedTarget.SetActive(_isActiveTarget);
     }
 
-    public void ReceiveDamage(float currentAttackPoints)
+    public int ReceiveDamage(float currentAttackPoints)
     {
         lifePoints -= currentAttackPoints;
         
         _ffcLevelValues.SetEnemyAsAttacker(this);
         if (lifePoints > 0)
-            return;
+            return _hitPoints;
         
         // Kill and deregister enemy
         _currentState = FFCEnemyState.Dead;
         _isActiveTarget = false;
         _ffcLevelValues.DeleteEnemy(this);
         Destroy(gameObject);
+        
+        return _killPoints;
     }
 
     private void Patrol()
