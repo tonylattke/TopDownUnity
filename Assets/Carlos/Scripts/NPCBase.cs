@@ -21,6 +21,8 @@ public class NPCBase : MonoBehaviour, Interactuable
 
     public void Interactuar()
     {
+        Debug.Log("Interacting with NPC: " + gameObject.name);
+        
         GameManager.Instance.CambiarEstadoPlayerInteractuando(true);
 
         cuadroDialogo.SetActive(true);

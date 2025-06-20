@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a26378e2f9f84371920bb906a40d3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toopDoor: {fileID: 8117345691457564619}
+  topDoor: {fileID: 8117345691457564619}
   bottomDoor: {fileID: 3074940473288710649}
   leftDoor: {fileID: 8629202545407824926}
   rightDoor: {fileID: 1717806840708917747}
@@ -61,6 +61,7 @@ GameObject:
   - component: {fileID: 2160269808271579885}
   - component: {fileID: 5580153820382345081}
   - component: {fileID: 7229278149498134649}
+  - component: {fileID: 964432138434542995}
   m_Layer: 0
   m_Name: RightDoor
   m_TagString: Door
@@ -184,6 +185,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &964432138434542995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717806840708917747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cb018c720544e3ab59164526cbe8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisRoom: {fileID: 7498458508083838550}
+  nextRoom: {fileID: 0}
+  direction: {x: 1, y: 0}
 --- !u!1 &2723581906322745776
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,6 +345,7 @@ GameObject:
   - component: {fileID: 7362825052647244735}
   - component: {fileID: 6275650118810405378}
   - component: {fileID: 1476658592760820513}
+  - component: {fileID: 6011193269346694111}
   m_Layer: 0
   m_Name: DownDoor
   m_TagString: Door
@@ -452,6 +469,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6011193269346694111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3074940473288710649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cb018c720544e3ab59164526cbe8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisRoom: {fileID: 7498458508083838550}
+  nextRoom: {fileID: 0}
+  direction: {x: 0, y: -1}
 --- !u!1 &3701737787734976302
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,6 +967,7 @@ GameObject:
   - component: {fileID: 5044251626173828524}
   - component: {fileID: 2013897488514660314}
   - component: {fileID: 4644950834998403555}
+  - component: {fileID: 6916832131029332272}
   m_Layer: 0
   m_Name: TopDoor
   m_TagString: Door
@@ -1058,6 +1091,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6916832131029332272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8117345691457564619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cb018c720544e3ab59164526cbe8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisRoom: {fileID: 7498458508083838550}
+  nextRoom: {fileID: 0}
+  direction: {x: 0, y: 1}
 --- !u!1 &8629202545407824926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,6 +1117,7 @@ GameObject:
   - component: {fileID: 4097200323227799997}
   - component: {fileID: 1155832277996531630}
   - component: {fileID: 7206768905080321318}
+  - component: {fileID: 3773965808177130786}
   m_Layer: 0
   m_Name: LeftDoor
   m_TagString: Door
@@ -1192,3 +1241,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3773965808177130786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8629202545407824926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cb018c720544e3ab59164526cbe8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisRoom: {fileID: 7498458508083838550}
+  nextRoom: {fileID: 0}
+  direction: {x: -1, y: 0}

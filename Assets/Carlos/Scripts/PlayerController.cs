@@ -33,12 +33,12 @@ public class PlayerController : MonoBehaviour
         Mover();
 
         if (Input.GetKeyDown(KeyCode.E)) LanzarInteraccion();
-        
+
     }
 
     public void Mover()
     {
-        
+
         inputH = Input.GetAxisRaw("Horizontal");
         inputV = Input.GetAxisRaw("Vertical");
 
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
         return Physics2D.OverlapCircle(puntoInteraccion, radioInteraccion);
 
     }
-    
+
     public void LanzarInteraccion()
     {
         colliderDelante = LanzarCheck();
@@ -105,9 +105,19 @@ public class PlayerController : MonoBehaviour
             if (interactuable != null) interactuable.Interactuar();
             */
 
-            if(colliderDelante.TryGetComponent<Interactuable>(out Interactuable interactuable)) interactuable.Interactuar();
-            
+            if (colliderDelante.TryGetComponent<Interactuable>(out Interactuable interactuable)) interactuable.Interactuar();
+
         }
     }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Door"))
+        {
+            Interactuable interactuable = col.GetComponent<Interactuable>();
+            if (interactuable != null) interactuable.Interactuar();
+        }
+    }
+    
 
 }

@@ -120,13 +120,12 @@ public class  RoomManager : MonoBehaviour
         int x = roomIndex.x;
         int y = roomIndex.y;
 
-/*
+
         // Evitar índices fuera del grid
         if (x < 0 || x >= gridSizeX || y < 0 || y >= gridSizeY) return false;
 
         // Evitar generar en una celda ya ocupada
         if (roomGrid[x, y] == 1) return false;
-*/
 
         // salir si se llegó al maximo de habitaciones
         if (roomCount >= maxRooms) return false;
@@ -164,32 +163,71 @@ public class  RoomManager : MonoBehaviour
     // abre las puertas de una habitación según las habitaciones adyacentes
     private void OpenDoors(GameObject room, int x, int y)
     {
-        Room roomComponent = room.GetComponent<Room>();
-        Vector2Int roomIndex = new Vector2Int(x, y);
+        Room currentRoom = room.GetComponent<Room>();
+        Vector2Int currentIndex = new Vector2Int(x, y);
 
-        // abrir puertas según las habitaciones adyacentes
-        if (x > 0 && roomGrid[x - 1, y] == 1) // izquierda
+        // Para cada dirección, si hay una habitación adyacente, abre puerta y asigna referencias
+        TryOpenAndLinkDoor(currentRoom, currentIndex, Vector2Int.left);
+        TryOpenAndLinkDoor(currentRoom, currentIndex, Vector2Int.right);
+        TryOpenAndLinkDoor(currentRoom, currentIndex, Vector2Int.up);
+        TryOpenAndLinkDoor(currentRoom, currentIndex, Vector2Int.down);
+    }
+
+    // intenta abrir y vincular una puerta entre la habitación actual y la vecina
+    private void TryOpenAndLinkDoor(Room currentRoom, Vector2Int currentIndex, Vector2Int direction)
+    {
+        Vector2Int neighborIndex = currentIndex + direction;
+
+        // Validar que esté dentro del grid
+        if (neighborIndex.x < 0 || neighborIndex.x >= gridSizeX || neighborIndex.y < 0 || neighborIndex.y >= gridSizeY)
+            return;
+
+        // Verificar si hay habitación vecina
+        if (roomGrid[neighborIndex.x, neighborIndex.y] != 1)
+            return;
+
+        // Obtener la habitación vecina
+        GameObject neighborRoomObj = roomObjects.Find(r => r.GetComponent<Room>().RoomIndex == neighborIndex);
+        if (neighborRoomObj == null) return;
+
+        Room neighborRoom = neighborRoomObj.GetComponent<Room>();
+
+        // Abrir puertas en ambas habitaciones
+        currentRoom.OpenDoor(direction);
+        neighborRoom.OpenDoor(-direction);
+
+        // Obtener las puertas y asignar referencias
+        Door doorFromCurrent = currentRoom.GetDoor(direction);
+        Door doorFromNeighbor = neighborRoom.GetDoor(-direction);
+
+        if (doorFromCurrent != null)
         {
-            roomComponent.OpenDoor(Vector2Int.left);
+            doorFromCurrent.ThisRoom = currentRoom;
+            doorFromCurrent.NextRoom = neighborRoom;
+            doorFromCurrent.Direction = direction;
         }
-        if (x < gridSizeX - 1 && roomGrid[x + 1, y] == 1) // derecha
+
+        if (doorFromNeighbor != null)
         {
-            roomComponent.OpenDoor(Vector2Int.right);
+            doorFromNeighbor.ThisRoom = neighborRoom;
+            doorFromNeighbor.NextRoom = currentRoom;
+            doorFromCurrent.Direction = -direction;
+
+
         }
-        if (y > 0 && roomGrid[x, y - 1] == 1) // abajo
-        {
-            roomComponent.OpenDoor(Vector2Int.down);
-        }
-        if (y < gridSizeY - 1 && roomGrid[x, y + 1] == 1) // arriba
-        {
-            roomComponent.OpenDoor(Vector2Int.up);
-        }
+
+/*
+        Debug.Log($"Door from {currentRoom.name} to {neighborRoom.name} assigned.");
+Debug.Log($"doorFromCurrent.NextRoom: {doorFromCurrent.NextRoom}");
+            Debug.Log($"doorFromNeighbor.NextRoom: {doorFromNeighbor.NextRoom}");
+*/
     }
 
 
-// ------------------
-// Métodos auxiliares
-// ------------------
+
+    // ------------------
+    // Métodos auxiliares
+    // ------------------
 
     // cuenta las habitaciones adyacentes
     private int CountAdjacentRooms(Vector2Int roomIndex)
@@ -197,6 +235,9 @@ public class  RoomManager : MonoBehaviour
         int x = roomIndex.x;
         int y = roomIndex.y;
         int count = 0;
+
+        // Evitar índices fuera del grid
+        if (x < 0 || x >= gridSizeX || y < 0 || y >= gridSizeY) return 0;
 
         if (x > 0 && roomGrid[x - 1, y] == 1) count++; // izquierda
         if (x < gridSizeX - 1 && roomGrid[x + 1, y] == 1) count++; // derecha
