@@ -67,15 +67,20 @@ public class GameManager : MonoBehaviour
         player.Interactuando = estado;
     }
    
-    public void CargarEscena(int sceneBuildIndex)
+    public void CargarEscenaPorID(int sceneBuildIndex)
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneBuildIndex);
     }
 
+    public void CargarEscenaPorNombre(string sceneName)
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+    }
+    
     public void ReiniciarEscena()
     {
         int currentSceneIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
-        CargarEscena(currentSceneIndex);
+        CargarEscenaPorID(currentSceneIndex);
         PausarJuegoOff();
     }
 
