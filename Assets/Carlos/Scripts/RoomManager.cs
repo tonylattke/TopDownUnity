@@ -7,7 +7,7 @@ using UnityEngine;
 public class  RoomManager : MonoBehaviour
 {
 
-    [SerializeField] private GameObject roomPrefab, exitPrefab;
+    [SerializeField] private GameObject roomPrefab, puertaPuebloPrefab, puertaJefePrefab;
     
     // numero máximo y mínimo de habitaciones
     [SerializeField] private int maxRooms = 15;
@@ -47,9 +47,9 @@ public class  RoomManager : MonoBehaviour
         Vector2Int initialRoomIndex = new Vector2Int(gridSizeX / 2, gridSizeX / 2);
         InstantiateRoom(initialRoomIndex);
             
-        // TODO: añadir cerca de la mitad de la sala el portal para salir de la mazmorra
+        // añade cerca de la mitad de la sala inicial el portal para salir de la mazmorra
         Vector3 offset = new Vector3(-3.5f, 0.5f, 0);
-        Instantiate(exitPrefab, GetPositionFromGridIndex(initialRoomIndex) + offset, Quaternion.identity);
+        Instantiate(puertaPuebloPrefab, GetPositionFromGridIndex(initialRoomIndex) + offset, Quaternion.identity);
 
     }
 
@@ -83,16 +83,47 @@ public class  RoomManager : MonoBehaviour
             RegenerateRooms();
         }
         // si ha salido bien
-        // abrimos todas las puertas que conectan dos habitaciones adyacentes
         else if (!generationComplete)
         {
+            // abrimos todas las puertas que conectan dos habitaciones adyacentes
             OpenDoorsForAllRooms();
+
+            // añadimos en la habitacion mas lejana la puerta al boss
+            AddBossRoom();
 
             Debug.Log("Generation complete");
             generationComplete = true;
         }
+        
+    }
 
+    // busca la sala mas alejada del centro y le pone añade el portal al boss
+    private void AddBossRoom()
+    {
+        Vector2Int roomInicial = new Vector2Int(gridSizeX / 2, gridSizeX / 2);
+        Vector2Int roomGanadora = roomInicial;
+        int mayorDistancia = 0;
 
+        for (int i = 0; i < roomGrid.GetLength(0); i++)
+        {
+            for (int j = 0; j < roomGrid.GetLength(1); j++)
+            {
+                if (roomGrid[i, j] == 1)
+                {
+                    int distancia = Mathf.Abs(i - roomInicial.x) + Mathf.Abs(j - roomInicial.y);
+                    if (distancia > mayorDistancia)
+                    {
+                        mayorDistancia = distancia;
+                        roomGanadora = new Vector2Int(i,j);
+                    }
+                }
+            }            
+        }
+        
+        Debug.Log("Room mas lejana: "+ roomGanadora + " distancia " +  mayorDistancia);
+        Vector3 offset = new Vector3(0.5f, 0.5f, 0);
+        Instantiate(puertaJefePrefab, GetPositionFromGridIndex(roomGanadora) + offset, Quaternion.identity);
+        
     }
 
     private void RegenerateRooms()

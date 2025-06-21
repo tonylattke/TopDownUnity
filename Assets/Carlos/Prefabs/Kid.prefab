@@ -171,9 +171,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frases:
-  - Hola
-  - "\xBFHas visto un coco?"
-  - "Es muy importante para mi, si lo ves d\xEDmelo."
+  - "Hola, me llamo Eram\t"
+  - "Esa mazmorra est\xE1 maldita, cada vez que entras cambia todo de lugar."
+  - "Busca una puerta roja en la sala m\xE1s lejana. "
+  - "Hay unos enemigos que si los derrotas quiz\xE1s todo se arregle... o no, no
+    s\xE9."
   tiempoEntreLetras: 0.03
   cuadroDialogo: {fileID: 0}
   textoDialogo: {fileID: 0}

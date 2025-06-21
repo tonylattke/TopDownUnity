@@ -5,6 +5,12 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
 
+    [SerializeField] private float vida;
+    public float Vida { get => vida; set => vida = value; }
+    [SerializeField] private int puntos;
+    public int Puntos { get => puntos; set => puntos = value; }
+
+    
     // movimiento
     private Vector3 ultimoInput, puntoDestino;
     private float inputH, inputV;
@@ -116,6 +122,19 @@ public class PlayerController : MonoBehaviour
         {
             Interactuable interactuable = col.GetComponent<Interactuable>();
             if (interactuable != null) interactuable.Interactuar();
+        }
+        
+        else if (col.CompareTag("Danger"))
+        {
+            vida -= 10f;
+            Debug.Log(vida);
+        }
+        
+        else if (col.CompareTag("Coin"))
+        {
+            puntos++;
+            Debug.Log(puntos);
+            Destroy(col.gameObject);
         }
     }
     
