@@ -1,15 +1,20 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public class PlayerController : MonoBehaviour
 {
-
+    public event Action eventoQuitarVida, eventoAumentarPuntos;
+    
+ 
     [SerializeField] private float vida;
     public float Vida { get => vida; set => vida = value; }
+    
     [SerializeField] private int puntos;
-    public int Puntos { get => puntos; set => puntos = value; }
 
+    public int Puntos { get => puntos; set => puntos = value; }
+    
     
     // movimiento
     private Vector3 ultimoInput, puntoDestino;
@@ -126,16 +131,25 @@ public class PlayerController : MonoBehaviour
         
         else if (col.CompareTag("Danger"))
         {
-            vida -= 10f;
-            Debug.Log(vida);
+            Vida -= 10f;
+            eventoQuitarVida.Invoke();
         }
         
         else if (col.CompareTag("Coin"))
         {
-            puntos++;
-            Debug.Log(puntos);
+            Debug.Log("detecta colision con moneda");
+            Puntos++;
             Destroy(col.gameObject);
+            eventoAumentarPuntos.Invoke();
         }
+        
+        else if (col.CompareTag("test"))
+        {
+            
+            Destroy(col.gameObject);
+            
+        }
+
     }
     
 

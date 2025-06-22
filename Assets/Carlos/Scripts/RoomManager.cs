@@ -7,7 +7,8 @@ using UnityEngine;
 public class  RoomManager : MonoBehaviour
 {
 
-    [SerializeField] private GameObject roomPrefab, puertaPuebloPrefab, puertaJefePrefab;
+    [SerializeField] private GameObject[] roomPrefabs;
+    [SerializeField] private GameObject puertaPuebloPrefab, puertaJefePrefab;
     
     // numero máximo y mínimo de habitaciones
     [SerializeField] private int maxRooms = 15;
@@ -48,7 +49,7 @@ public class  RoomManager : MonoBehaviour
         InstantiateRoom(initialRoomIndex);
             
         // añade cerca de la mitad de la sala inicial el portal para salir de la mazmorra
-        Vector3 offset = new Vector3(-3.5f, 0.5f, 0);
+        Vector3 offset = new Vector3(-1.5f, 0.5f, 0);
         Instantiate(puertaPuebloPrefab, GetPositionFromGridIndex(initialRoomIndex) + offset, Quaternion.identity);
 
     }
@@ -156,7 +157,7 @@ public class  RoomManager : MonoBehaviour
         int y = roomIndex.y;
         roomGrid[x, y] = 1;
         roomCount++;
-        GameObject newRoom = Instantiate(roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+        GameObject newRoom = Instantiate(roomPrefabs[Random.Range(0,roomPrefabs.Length)], GetPositionFromGridIndex(roomIndex), Quaternion.identity);
         newRoom.name = "Room " + roomCount;
         newRoom.GetComponent<Room>().RoomIndex = roomIndex;
         roomObjects.Add(newRoom);
