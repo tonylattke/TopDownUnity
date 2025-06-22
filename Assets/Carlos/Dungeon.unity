@@ -1739,8 +1739,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 201245683075302329, guid: f2959e6cd94ef46cfaac9cf24c88784b, type: 3}
       propertyPath: 'frases.Array.data[0]'
-      value: Te han derrotado. Pero no te desanimes. Te voy a llevar al publo a que
-        te recuperes.
+      value: Te han derrotado. Pero no te desanimes. Te voy a llevar al pueblo a
+        que te recuperes.
       objectReference: {fileID: 0}
     - target: {fileID: 2062924220778507272, guid: f2959e6cd94ef46cfaac9cf24c88784b, type: 3}
       propertyPath: m_Enabled
