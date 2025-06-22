@@ -133,6 +133,8 @@ public class PlayerController : MonoBehaviour
         {
             Vida -= 10f;
             eventoQuitarVida.Invoke();
+
+            if (Vida <= 0) Muerte();
         }
         
         else if (col.CompareTag("Coin"))
@@ -151,6 +153,24 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-    
 
+
+    private void Muerte()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<Collider2D>().enabled = false;
+            
+        GameObject npc = GameObject.FindGameObjectWithTag("NPC");
+        npc.GetComponent<SpriteRenderer>().enabled = true;
+        
+        Interactuable interactuable = npc.GetComponent<Interactuable>();
+        if (interactuable != null) interactuable.Interactuar();
+        
+        Invoke("IrAlPueblo",5f);
+    }
+
+    private void IrAlPueblo()
+    {
+        GameManager.Instance.CargarEscenaPorNombre("Pueblo");
+    }
 }
