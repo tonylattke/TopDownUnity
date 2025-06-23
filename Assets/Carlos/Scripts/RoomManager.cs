@@ -4,12 +4,12 @@ using Unity.Multiplayer.Center.Common;
 using UnityEditor;
 using UnityEngine;
 
-public class  RoomManager : MonoBehaviour
+public class RoomManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject[] roomPrefabs;
     [SerializeField] private GameObject puertaPuebloPrefab, puertaJefePrefab;
-    
+
     // numero máximo y mínimo de habitaciones
     [SerializeField] private int maxRooms = 15;
     [SerializeField] private int minRooms = 10;
@@ -21,7 +21,7 @@ public class  RoomManager : MonoBehaviour
     // tamaño del grid
     [SerializeField] private int gridSizeX = 10;
     [SerializeField] private int gridSizeY = 10;
-    
+
     // lista de habitaciones generadas
     private List<GameObject> roomObjects = new List<GameObject>();
 
@@ -36,7 +36,7 @@ public class  RoomManager : MonoBehaviour
     // contador de habitaciones generadas
     private int roomCount;
     private bool generationComplete = false;
-    
+
 
 
     private void Start()
@@ -47,7 +47,7 @@ public class  RoomManager : MonoBehaviour
         // inciar la generación en mitad del grid
         Vector2Int initialRoomIndex = new Vector2Int(gridSizeX / 2, gridSizeX / 2);
         InstantiateRoom(initialRoomIndex);
-            
+
         // añade cerca de la mitad de la sala inicial el portal para salir de la mazmorra
         Vector3 offset = new Vector3(-1.5f, 0.5f, 0);
         Instantiate(puertaPuebloPrefab, GetPositionFromGridIndex(initialRoomIndex) + offset, Quaternion.identity);
@@ -62,7 +62,7 @@ public class  RoomManager : MonoBehaviour
             Vector2Int roomIndex = roomQueue.Dequeue();
             int x = roomIndex.x;
             int y = roomIndex.y;
-            
+
             // aunque aqui esten en un orden, luego en la función con un %
             // se descarta la room para que pase a la siguiente y así dar aleatoriedad
             // aunque es cierto que la ultima opcion es mas improvable que salga
@@ -95,7 +95,7 @@ public class  RoomManager : MonoBehaviour
             Debug.Log("Generation complete");
             generationComplete = true;
         }
-        
+
     }
 
     // busca la sala mas alejada del centro y le pone añade el portal al boss
@@ -115,16 +115,16 @@ public class  RoomManager : MonoBehaviour
                     if (distancia > mayorDistancia)
                     {
                         mayorDistancia = distancia;
-                        roomGanadora = new Vector2Int(i,j);
+                        roomGanadora = new Vector2Int(i, j);
                     }
                 }
-            }            
+            }
         }
-        
-        Debug.Log("Room mas lejana: "+ roomGanadora + " distancia " +  mayorDistancia);
+
+        Debug.Log("Room mas lejana: " + roomGanadora + " distancia " + mayorDistancia);
         Vector3 offset = new Vector3(0.5f, 0.5f, 0);
         Instantiate(puertaJefePrefab, GetPositionFromGridIndex(roomGanadora) + offset, Quaternion.identity);
-        
+
     }
 
     private void RegenerateRooms()
@@ -157,7 +157,7 @@ public class  RoomManager : MonoBehaviour
         int y = roomIndex.y;
         roomGrid[x, y] = 1;
         roomCount++;
-        GameObject newRoom = Instantiate(roomPrefabs[Random.Range(0,roomPrefabs.Length)], GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+        GameObject newRoom = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Length)], GetPositionFromGridIndex(roomIndex), Quaternion.identity);
         newRoom.name = "Room " + roomCount;
         newRoom.GetComponent<Room>().RoomIndex = roomIndex;
         roomObjects.Add(newRoom);
@@ -165,7 +165,7 @@ public class  RoomManager : MonoBehaviour
         // la encolamos para que luego trate de expandirse en el update
         roomQueue.Enqueue(roomIndex);
     }
-    
+
 
     // intenta generar una habitación en la posición indicada
     private bool TryGenerateRoom(Vector2Int roomIndex)
@@ -208,13 +208,13 @@ public class  RoomManager : MonoBehaviour
     // abre las puertas de una habitación según las habitaciones adyacentes
     private void OpenDoors(GameObject room, Vector2Int currentIndex)
     {
-        
+
         Room currentRoom = room.GetComponent<Room>();
 
         Debug.Log("-----------------");
         Debug.Log("Abre la puerta " + currentRoom.name + " posicion " + currentIndex.x + ", " + currentIndex.y);
-        
-        
+
+
         // Para cada dirección, si hay una habitación adyacente, abre puerta y asigna referencias
         TryOpenAndLinkDoor(currentRoom, currentIndex, Vector2Int.left);
         TryOpenAndLinkDoor(currentRoom, currentIndex, Vector2Int.right);
@@ -226,11 +226,11 @@ public class  RoomManager : MonoBehaviour
     private void TryOpenAndLinkDoor(Room currentRoom, Vector2Int currentIndex, Vector2Int direction)
     {
         Debug.Log("--> Intento a la direccion: " + direction.x + ", " + direction.y);
-        
+
         Vector2Int neighborIndex = currentIndex + direction;
 
         Debug.Log("El vecino es " + neighborIndex.x + ", " + neighborIndex.y);
-        
+
         // Validar que esté dentro del grid
         if (neighborIndex.x < 0 || neighborIndex.x >= gridSizeX || neighborIndex.y < 0 || neighborIndex.y >= gridSizeY)
             return;
@@ -243,7 +243,7 @@ public class  RoomManager : MonoBehaviour
         }
 
         Debug.Log("Ahi SI hay vecino");
-        
+
         // Obtener la habitación vecina
         GameObject neighborRoomObj = roomObjects.Find(r => r.GetComponent<Room>().RoomIndex == neighborIndex);
         if (neighborRoomObj == null)
@@ -252,16 +252,16 @@ public class  RoomManager : MonoBehaviour
             return;
         }
 
-        
+
         Room neighborRoom = neighborRoomObj.GetComponent<Room>();
-        
+
         Debug.Log("Si encuentra su game object y saco el Room");
 
-       
-        
+
+
         // Abrir puertas en ambas habitaciones
         currentRoom.OpenDoor(direction);
-        Debug.Log("Abro mi puerta "+direction.x + ", " + direction.y);
+        Debug.Log("Abro mi puerta " + direction.x + ", " + direction.y);
         neighborRoom.OpenDoor(-direction);
         Debug.Log("Abro la puerta del vecino" + -direction.x + ", " + -direction.y);
 
@@ -300,6 +300,7 @@ public class  RoomManager : MonoBehaviour
         return new Vector3(roomWidht * (gridX - gridSizeX / 2), roomHeight * (gridY - gridSizeY / 2));
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Color gizmoColor = new Color(0, 1, 1, 0.05f);
@@ -309,11 +310,13 @@ public class  RoomManager : MonoBehaviour
         {
             for (int y = 0; y < gridSizeY; y++)
             {
-             Vector3 position = GetPositionFromGridIndex(new Vector2Int(x, y));   
-             Gizmos.DrawWireCube(position, new Vector3(roomWidht, roomHeight, 1));
-             Handles.color = Color.white;
-             Handles.Label(position, x.ToString() + " , " + y.ToString());
+                Vector3 position = GetPositionFromGridIndex(new Vector2Int(x, y));
+                Gizmos.DrawWireCube(position, new Vector3(roomWidht, roomHeight, 1));
+                Handles.color = Color.white;
+                Handles.Label(position, x.ToString() + " , " + y.ToString());
             }
         }
     }
+#endif
+    
 }
