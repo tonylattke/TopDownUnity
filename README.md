@@ -18,7 +18,10 @@ Explora un mundo desde una vista cenital clásica donde cada paso cuenta. Habla 
 - Moverse: Flechas del teclado
 - Interactuar / Recoger: E
 - Abrir inventario: I
-- Combate: apuntan con ratón y hacer click izquierdo
+- Combate: 
+Apuntar con ratón
+Ataque: click izquierdo
+Parry: click derecho
 
 
 # Características principales
