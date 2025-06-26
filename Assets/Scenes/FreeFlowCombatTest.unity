@@ -504,7 +504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
       propertyPath: damage
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
       propertyPath: radius
@@ -693,7 +693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
       propertyPath: damage
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
       propertyPath: radius
@@ -1015,7 +1015,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
       propertyPath: damage
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
       propertyPath: radius
@@ -101524,7 +101524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
       propertyPath: damage
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
       propertyPath: radius
@@ -101734,7 +101734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
       propertyPath: damage
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6109133628130918578, guid: 5b811cabf55de04409ff6ddbd93c231d, type: 3}
       propertyPath: radius
